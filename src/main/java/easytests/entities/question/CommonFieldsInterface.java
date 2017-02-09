@@ -6,15 +6,19 @@ import easytests.entities.Question;
 import java.util.List;
 
 /**
- * Created by Admin on 08.02.2017.
+ * @author vkpankov
  */
 public interface CommonFieldsInterface {
-    public String getText();
-    public Question setText(String text);
-    public Integer getType();
-    public Question setType(Integer text);
+    String getText();
 
-    public List<Answer> getAnswers();
-    public Question setAnswers(List<Answer> answers);
+    Question setText(String text);
+
+    Integer getType();
+
+    Question setType(Integer text);
+
+    List<Answer> getAnswers();
+
+    Question setAnswers(List<Answer> answers);
 
 }
