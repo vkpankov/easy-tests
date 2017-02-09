@@ -2,14 +2,21 @@ package easytests.entities;
 
 import easytests.entities.answer.CommonFieldsInterface;
 
+/**
+ * @author vkpankov
+ */
 public class Answer implements CommonFieldsInterface {
+
     private Integer id;
+
     private String text;
+
     private Integer questionId;
 
     public Integer getId() {
         return this.id;
     }
+
     public Answer setId(Integer id) {
         this.id = id;
         return this;
@@ -18,6 +25,7 @@ public class Answer implements CommonFieldsInterface {
     public Integer getQuestionId() {
         return this.questionId;
     }
+
     public Answer setQuestionId(Integer questionId) {
         this.questionId = questionId;
         return this;
@@ -29,7 +37,7 @@ public class Answer implements CommonFieldsInterface {
     }
 
     @Override
-    public Answer setText(String text){
+    public Answer setText(String text) {
         this.text = text;
         return this;
     }
