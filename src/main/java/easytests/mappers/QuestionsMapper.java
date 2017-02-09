@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface QuestionsMapper
 {
 
-    @Select("SELECT answer_id,answer_text FROM answers WHERE answer_qid = #{qId}")
+    @Select("SELECT answer_id,answer_text FROM answers WHERE answer_qid=#{qId}")
     @Results(
             {
                     @Result(property = "id", column = "answer_id"),
