@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by Admin on 08.02.2017.
- */
-
-/**
  * @author vkpankov
  */
+
 @Service
 public class QuestionService {
 
@@ -25,6 +22,7 @@ public class QuestionService {
     private AnswersMapper answersMapper;
     @Autowired
     private QuestionsMapper questionsMapper;
+
     public void insertQuestionWithAnswers(Question question){
         questionsMapper.create(question);
         for (Answer answer: question.getAnswers()) {
