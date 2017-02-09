@@ -3,10 +3,12 @@ package easytests.entities.answer;
 import easytests.entities.Answer;
 
 /**
- * Created by Admin on 08.02.2017.
+ * @author vkpankov
  */
+
 public interface CommonFieldsInterface {
-    public String getText();
-    public Answer setText(String text);
+    String getText();
+
+    Answer setText(String text);
 
 }
