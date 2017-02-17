@@ -21,22 +21,77 @@ public class QuestionService {
     @Autowired
     private QuestionsMapper questionsMapper;
 
-    public void insertQuestionWithAnswers(Question question) {
-        questionsMapper.create(question);
-        for (Answer answer: question.getAnswers()) {
-            answer.setQuestionId(question.getId());
-            answersMapper.create(answer);
-        }
+    public static boolean containsId(List<Answer> list, int id) {
 
+        for (Answer answer : list) {
+            if (answer.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void updateQuestion(Question question) {
-        questionsMapper.update(question);
+    public void saveQuestion(Question question) {
+        Question readQuestion = null;
+
+        if (question.getId() != null) {
+            readQuestion = questionsMapper.readById(question.getId());
+        }
+
+        if (readQuestion == null) {
+            questionsMapper.create(question);
+        } else {
+            questionsMapper.update(question);
+        }
+    }
+
+    public void saveQuestionWithAnswers(Question question) {
+
+        Question readQuestion = null;
+
+        if (question.getId() != null) {
+            readQuestion = questionsMapper.readById(question.getId());
+        }
+
         final List<Answer> answers = question.getAnswers();
 
-        for (Answer answer: answers) {
+        if (readQuestion == null) {
 
-            answersMapper.update(answer);
+            questionsMapper.create(question);
+
+            for (Answer answer: answers) {
+                answer.setQuestionId(question.getId());
+                answersMapper.create(answer);
+            }
+
+        } else {
+
+            questionsMapper.update(question);
+
+            final List<Answer> readAnswers = readQuestion.getAnswers();
+
+            for (Answer answer: readAnswers) {
+
+                if (!containsId(answers, answer.getId())) {
+
+                    answersMapper.delete(answer);
+
+                }
+
+            }
+
+            for (Answer answer: answers) {
+
+                if (answer.getId() != null) {
+
+                    answersMapper.update(answer);
+
+                } else {
+                    answer.setQuestionId(question.getId());
+                    answersMapper.create(answer);
+                }
+
+            }
 
         }
     }
@@ -45,17 +100,12 @@ public class QuestionService {
 
         questionsMapper.delete(question);
 
-        final List<Answer> answers = question.getAnswers();
-        for (Answer answer: answers) {
-
-            answersMapper.delete(answer);
-
-        }
-
     }
 
     public Question getQuestionById(Integer id) {
+
         return questionsMapper.readById(id);
+
     }
 
     public List<Question> getAllQuestions() {
